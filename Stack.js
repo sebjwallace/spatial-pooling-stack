@@ -12,7 +12,7 @@ class Stack{
 
     compute(input){
 
-        this.layers[0].compute(input)
+        var l1 = this.layers[0].compute(input)
 
     }
 

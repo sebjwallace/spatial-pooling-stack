@@ -29,8 +29,8 @@ const loadImage = (id,canvasSize) => {
     return grid
 }
 
-var fieldSize = 5
-var stack = new Stack({nLayers:2,inputSize:28,nColumns:7,nCells:12,fieldSize})
+var fieldSize = 3
+var stack = new Stack({nLayers:2,inputSize:28,nColumns:28,nCells:12,fieldSize,noiseLevel:0.002})
 
 var ctx = createContext(800)
 
@@ -47,13 +47,13 @@ setInterval(() => {
     for(var cx = 0; cx < input.length; cx++){
         for(var cy = 0; cy < input[cx].length; cy++){
             ctx.fillStyle = 'rgba(0,0,0,'+(input[cy][cx])+')'
-            ctx.fillRect((cx*5)+10,(cy*5)+10,5,5)
+            ctx.fillRect((cx*2)+350,(cy*2)+10,2,2)
         }
     }
 
     stack.compute(input)
 
-    var size = 7
+    var size = 2
     var dist = stack.layers[0].dist
     var nColumns = stack.layers[0].nColumns
     var column = stack.layers[0].column
@@ -64,7 +64,7 @@ setInterval(() => {
             for(var i = 0; i < cells.length; i++){
                 var overlap = cells[i].compute(field)
                 ctx.fillStyle = 'rgba(0,0,0,'+(overlap)+')'
-                ctx.fillRect(((cx)*size)+10,((cy)*size)+(i*50)+180,size,size)
+                ctx.fillRect(((cx)*size)+(i*58)+10,((cy)*size)+80,size,size)
             }
         }
     }
@@ -75,7 +75,7 @@ setInterval(() => {
             for(var y = 0; y < fieldSize; y++){
                 var w = cell.proximal[(x*fieldSize)+y]
                 ctx.fillStyle = 'rgba(0,0,0,'+(w)+')'
-                ctx.fillRect((y*5)+100,(x*5)+(i*50)+200,5,5)
+                ctx.fillRect((y*5)+(i*58)+28,(x*5)+140,5,5)
             }
         }
     }

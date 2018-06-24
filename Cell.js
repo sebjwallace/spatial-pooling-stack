@@ -4,6 +4,7 @@ class Cell{
     constructor(args){
 
         this.learningRate = args.learningRate || 0.02
+        this.noiseLevel = args.noiseLevel || 0.002
 
         this.proximal = new Array(args.fieldSize**2).fill(1)
         this.distal = []
@@ -31,7 +32,7 @@ class Cell{
     noisify(){
 
         for(var i = 0; i < this.proximal.length; i++){
-            this.proximal[i] += (Math.random() - 0.5) * 0.005
+            this.proximal[i] += (Math.random() - 0.5) * this.noiseLevel
             this.proximal[i] = this.proximal[i] > 1 ? 1 : this.proximal[i]
             this.proximal[i] = this.proximal[i] < 0 ? 0 : this.proximal[i]
         }
